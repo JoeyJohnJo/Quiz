@@ -17,3 +17,14 @@ object Nav {
      */
     const val fecharAplicativo = "X"
 }
+
+object QuestionOptions {
+    const val multipleAnswers = "A"
+    const val freeAnswer = "B"
+    const val trueOrFalse = "C"
+    private val validOptions = listOf(multipleAnswers, freeAnswer, trueOrFalse)
+    fun String.isValidOption() = validOptions.any { it.lowercase() == this.lowercase() }
+
+    fun String.isInvalidOption() = !this.isValidOption()
+
+}

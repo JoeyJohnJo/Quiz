@@ -1,22 +1,57 @@
 package telas
 
+import QuestionOptions
+import QuestionOptions.isInvalidOption
+import telas.questions.novaPerguntaMultiplasEscolhas
+import telas.questions.novaPerguntaRespostaLivre
+import telas.questions.novaPerguntaVerdadeiroOuFalso
+
 fun abrirMenuCriarNovoQuiz() {
     println("Novo Quiz")
     println("de que se trata o novo quiz?")
-    var TemaQuiz = readln()
+    val temaQuiz = readln()
 
     println("Cuantas perguntas tera o quiz?")
-    var Cuantidadeperguntas = readln().toInt()
+    val cuantidaDePerguntas = readln().toInt()
+    val listaDePerguntas = mutableListOf<List<Any>>()
 
-    println("selecione a tecla correspondente para a primera pergunta")
+    for (i in 1..cuantidaDePerguntas) {
+        listaDePerguntas.add(criarNovaPergunta())
+    }
 
-    println("A=escolher opcao correta")
-    println("B=resposta livre")
-    println("C=verdadeiro o falso")
+    // Agrupar e salvar
+    // O tema
+    // Quantidade de perguntas
+    // Lista de perguntas e respostas
+}
 
-    var OpcaoSelecionada = readln()
+private fun criarNovaPergunta(): List<Any> {
+    println("Selecione o tipo para a pergunta")
 
-    println("primera pergunta")
-    var PrimeraPergunta=readln()
-    var Resposta1=readln()
+    val selectedOption = getSelectedQuestionOption()
+
+    return when (selectedOption) {
+        QuestionOptions.multipleAnswers -> novaPerguntaMultiplasEscolhas()
+        QuestionOptions.freeAnswer -> novaPerguntaRespostaLivre()
+        QuestionOptions.trueOrFalse -> novaPerguntaVerdadeiroOuFalso()
+        else -> listOf()
+    }
+
+}
+
+private fun getSelectedQuestionOption(): String {
+    var selectedOption = ""
+    while (selectedOption == "") {
+        println("${QuestionOptions.multipleAnswers} = Multiplas escolhas")
+        println("${QuestionOptions.freeAnswer} = resposta livre")
+        println("${QuestionOptions.trueOrFalse} = verdadeiro o falso")
+
+        selectedOption = readln()
+
+        if (selectedOption.isInvalidOption()) {
+            opcaoNaoReconhecida()
+            selectedOption = ""
+        }
+    }
+    return selectedOption.uppercase()
 }

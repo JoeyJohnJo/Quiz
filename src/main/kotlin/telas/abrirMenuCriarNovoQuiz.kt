@@ -1,10 +1,14 @@
 package telas
 
+import FileConstants.folderName
 import QuestionOptions
 import QuestionOptions.isInvalidOption
 import telas.questions.novaPerguntaMultiplasEscolhas
 import telas.questions.novaPerguntaRespostaLivre
 import telas.questions.novaPerguntaVerdadeiroOuFalso
+import java.io.File
+import java.io.FileOutputStream
+import java.io.ObjectOutputStream
 
 fun abrirMenuCriarNovoQuiz() {
     println("Novo Quiz")
@@ -19,10 +23,26 @@ fun abrirMenuCriarNovoQuiz() {
         listaDePerguntas.add(criarNovaPergunta())
     }
 
-    // Agrupar e salvar
-    // O tema
-    // Quantidade de perguntas
-    // Lista de perguntas e respostas
+    println("Deseja salvar o quiz. Aperte S para sim ou qualquer tecla para não")
+    val desejaSalvar = readln()
+    if (desejaSalvar.equals("s", true)) {
+        println("Salvando...")
+        val quiz = listOf(temaQuiz, cuantidaDePerguntas, listaDePerguntas)
+        saveToDisk(quiz, "$folderName/Quiz - $temaQuiz")
+        println("Seu quiz foi salvo")
+    }
+}
+
+fun saveToDisk(obj: Any, fileName: String) {
+    var actualFileName = fileName
+    File(folderName).mkdirs()
+    if (File(fileName).exists()) {
+        val count = File(folderName).walk().filter {
+            it.path.startsWith(fileName.replace("/", "\\"))
+        }.count()
+        actualFileName = "$fileName ($count)"
+    }
+    ObjectOutputStream(FileOutputStream(actualFileName)).use { it.writeObject(obj) }
 }
 
 private fun criarNovaPergunta(): List<Any> {

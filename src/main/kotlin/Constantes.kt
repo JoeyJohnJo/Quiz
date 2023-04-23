@@ -28,3 +28,8 @@ object QuestionOptions {
     fun String.isInvalidOption() = !this.isValidOption()
 
 }
+
+object FileConstants {
+    const val folderName = "quizzes_salvos"
+
+}

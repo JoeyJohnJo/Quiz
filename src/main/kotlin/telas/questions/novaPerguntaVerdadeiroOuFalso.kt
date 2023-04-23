@@ -1,10 +1,18 @@
 package telas.questions
 
 fun novaPerguntaVerdadeiroOuFalso(): List<Any> {
-    // Informar a pergunta
-    var pergunta = getQuestion()
-    // Informar V ou F
-    // Se ele digitar um valor diferente de V ou F, mostrar opcao invalida, e pedir pra informar novamente
-    // Retornar lista com pergunta (String) e resposta (String ou Boolean)
-    return listOf()
+    val pergunta = getQuestion()
+    val resposta = getAnswer()
+    return listOf(pergunta, resposta)
+}
+
+private fun getAnswer(): String {
+    println("Digite a resposta")
+    var resposta = readln()
+
+    while (!resposta.equals("v", true) && !resposta.equals("f", true)) {
+        println("Resposta inválida, digite V ou F")
+        resposta = readln()
+    }
+    return resposta
 }

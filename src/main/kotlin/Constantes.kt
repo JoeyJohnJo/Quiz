@@ -1,3 +1,7 @@
+import telas.presentQuiz.showFreeTextAnswerQuestion
+import telas.presentQuiz.showMultipleAnswersQuestion
+import telas.presentQuiz.showTrueOrFalseQuestion
+
 /**
  * Um objeto que contém constantes para as opções de navegação do aplicativo.
  */

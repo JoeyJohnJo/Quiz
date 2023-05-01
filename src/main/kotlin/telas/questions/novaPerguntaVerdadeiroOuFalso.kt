@@ -1,9 +1,11 @@
 package telas.questions
 
+import QuestionTypes
+
 fun novaPerguntaVerdadeiroOuFalso(): List<Any> {
     val pergunta = getQuestion()
     val resposta = getAnswer()
-    return listOf(pergunta, resposta)
+    return listOf(QuestionTypes.TRUE_OR_FALSE.value, pergunta, resposta)
 }
 
 private fun getAnswer(): String {

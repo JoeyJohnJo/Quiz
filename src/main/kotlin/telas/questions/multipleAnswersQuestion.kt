@@ -1,5 +1,7 @@
 package telas.questions
 
+import QuestionTypes
+
 fun novaPerguntaMultiplasEscolhas(): List<Any> {
     val pergunta = getQuestion()
 
@@ -7,7 +9,7 @@ fun novaPerguntaMultiplasEscolhas(): List<Any> {
     val quantidadeDeRespostasPossiveis = readln().toInt()
     val listaDeRespostasPossiveis = getPossibleAnswers(quantidadeDeRespostasPossiveis)
     val opcaoSelecionada = getCorrectAnswerIndex(listaDeRespostasPossiveis)
-    return listOf(pergunta, listaDeRespostasPossiveis, opcaoSelecionada)
+    return listOf(QuestionTypes.MULTIPLE_ANSWERS.value, pergunta, listaDeRespostasPossiveis, opcaoSelecionada)
 
 }
 

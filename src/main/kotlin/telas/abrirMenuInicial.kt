@@ -1,5 +1,7 @@
 package telas
 
+import telas.presentQuiz.abrirListaDeQuiz
+
 /**
  * Exibe o menu inicial do aplicativo e permite ao usuário navegar pelas opções.
  */

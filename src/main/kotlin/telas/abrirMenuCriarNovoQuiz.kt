@@ -3,9 +3,11 @@ package telas
 import FileConstants.folderName
 import QuestionOptions
 import QuestionOptions.isInvalidOption
-import telas.questions.novaPerguntaMultiplasEscolhas
-import telas.questions.novaPerguntaRespostaLivre
-import telas.questions.novaPerguntaVerdadeiroOuFalso
+import objetos.Quiz
+import objetos.questions.FreeTextAnswerQuestion
+import objetos.questions.MultipleAnswersQuestion
+import objetos.questions.Question
+import objetos.questions.TrueOrFalseQuestion
 import java.io.File
 import java.io.FileOutputStream
 import java.io.ObjectOutputStream
@@ -17,7 +19,7 @@ fun abrirMenuCriarNovoQuiz() {
 
     println("Cuantas perguntas tera o quiz?")
     val cuantidaDePerguntas = readln().toInt()
-    val listaDePerguntas = mutableListOf<List<Any>>()
+    val listaDePerguntas = mutableListOf<Question>()
 
     for (i in 1..cuantidaDePerguntas) {
         listaDePerguntas.add(criarNovaPergunta())
@@ -27,7 +29,7 @@ fun abrirMenuCriarNovoQuiz() {
     val desejaSalvar = readln()
     if (desejaSalvar.equals("s", true)) {
         println("Salvando...")
-        val quiz = listOf(temaQuiz, cuantidaDePerguntas, listaDePerguntas)
+        val quiz = Quiz(temaQuiz, listaDePerguntas)
         saveToDisk(quiz, "$folderName/Quiz - $temaQuiz")
         println("Seu quiz foi salvo")
     }
@@ -45,16 +47,16 @@ fun saveToDisk(obj: Any, fileName: String) {
     ObjectOutputStream(FileOutputStream(actualFileName)).use { it.writeObject(obj) }
 }
 
-private fun criarNovaPergunta(): List<Any> {
+private fun criarNovaPergunta(): Question {
     println("Selecione o tipo para a pergunta")
 
     val selectedOption = getSelectedQuestionOption()
 
     return when (selectedOption) {
-        QuestionOptions.multipleAnswers -> novaPerguntaMultiplasEscolhas()
-        QuestionOptions.freeAnswer -> novaPerguntaRespostaLivre()
-        QuestionOptions.trueOrFalse -> novaPerguntaVerdadeiroOuFalso()
-        else -> listOf()
+        QuestionOptions.multipleAnswers -> MultipleAnswersQuestion.new()
+        QuestionOptions.freeAnswer -> FreeTextAnswerQuestion.new()
+        QuestionOptions.trueOrFalse -> TrueOrFalseQuestion.new()
+        else -> throw Exception()
     }
 
 }

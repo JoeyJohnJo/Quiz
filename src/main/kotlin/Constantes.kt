@@ -1,7 +1,3 @@
-import telas.presentQuiz.showFreeTextAnswerQuestion
-import telas.presentQuiz.showMultipleAnswersQuestion
-import telas.presentQuiz.showTrueOrFalseQuestion
-
 /**
  * Um objeto que contém constantes para as opções de navegação do aplicativo.
  */
@@ -27,7 +23,7 @@ object QuestionOptions {
     const val freeAnswer = "B"
     const val trueOrFalse = "C"
     private val validOptions = listOf(multipleAnswers, freeAnswer, trueOrFalse)
-    fun String.isValidOption() = validOptions.any { it.lowercase() == this.lowercase() }
+    private fun String.isValidOption() = validOptions.any { it.lowercase() == this.lowercase() }
 
     fun String.isInvalidOption() = !this.isValidOption()
 
